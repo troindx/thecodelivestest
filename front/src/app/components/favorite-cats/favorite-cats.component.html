@@ -1,0 +1,8 @@
+<ion-list>
+    <h2>Favorite Cats</h2>
+    <ion-item *ngFor="let cat of favoriteCats">
+      <app-cat-card [cat]="cat"></app-cat-card>
+    </ion-item>
+    <p *ngIf="favoriteCats.length === 0">No favorite cats yet!</p>
+  </ion-list>
+  

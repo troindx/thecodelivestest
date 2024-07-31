@@ -15,7 +15,7 @@ MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
 MONGODB_HOST = os.getenv("MONGODB_HOST")
 
 # Connection string with environment variables
-MONGODB_URL = f"mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}/{MONGODB_DATABASE_NAME}"
+MONGODB_URL = f"mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}"
 router = APIRouter()
 cat_service = CatService(db_url=MONGODB_URL, db_name=MONGODB_DATABASE_NAME)
 

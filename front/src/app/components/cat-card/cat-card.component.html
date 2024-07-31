@@ -1,0 +1,23 @@
+<ion-card (click)="toggleExpand()" [@expandCollapse]="expanded ? 'expanded' : 'collapsed'">
+  <ion-card-header>
+    <ion-card-title>{{ cat.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <img [src]="cat.image" *ngIf="cat.image && !expanded" style="width: 100px; height: 100px; object-fit: cover;" />
+    <div *ngIf="expanded">
+      <img [src]="cat.image" *ngIf="cat.image" />
+      <p>Age: {{ cat.age }}</p>
+      <p>Breed: {{ cat.breed }}</p>
+      <div *ngIf="cat.vaccinations.length > 0">
+        <h3>Vaccinations:</h3>
+        <ul>
+          <li *ngFor="let vaccine of cat.vaccinations">{{ vaccine.type }} - {{ getFormattedDate(vaccine.date) }}</li>
+        </ul>
+      </div>
+      <ion-button (click)="toggleFavorite()">
+        {{ isFavorite() ? 'Remove from Favorites' : 'Add to Favorites' }}
+      </ion-button>
+      <ion-button (click)="onEditCat(); $event.stopPropagation();">Edit</ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

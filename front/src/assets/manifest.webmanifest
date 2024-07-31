@@ -1,0 +1,16 @@
+{
+    "name": "the code lives front end test",
+    "short_name": "thecodelives-web-dev",
+    "theme_color": "#1976d2",
+    "background_color": "#fafafa",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "assets/icons/favicon.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      }
+    ]
+  }

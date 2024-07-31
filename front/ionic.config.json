@@ -1,0 +1,7 @@
+{
+  "name": "thecodelives",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

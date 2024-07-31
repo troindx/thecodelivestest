@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import Optional, List
 from datetime import datetime
 
 class Vaccination(BaseModel):
@@ -10,4 +10,6 @@ class Cat(BaseModel):
     name: str
     age: int
     breed: str
+    image: str
     vaccinations: List[Vaccination]
+    id : Optional[str] = None

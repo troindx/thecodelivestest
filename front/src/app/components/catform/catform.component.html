@@ -1,0 +1,47 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>{{ cat ? 'Edit Cat' : 'New Cat' }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form [formGroup]="catForm" (ngSubmit)="submitForm()">
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Age</ion-label>
+        <ion-input type="number" formControlName="age"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Breed</ion-label>
+        <ion-input formControlName="breed"></ion-input>
+      </ion-item>
+
+      <div formArrayName="vaccinations">
+        <ion-item *ngFor="let vaccination of vaccinations.controls; let i = index">
+          <div [formGroupName]="i">
+            <ion-label position="floating">Vaccination Type</ion-label>
+            <ion-input formControlName="type"></ion-input>
+            <ion-label position="floating">Vaccination Date</ion-label>
+            <ion-input type="date" formControlName="date"></ion-input>
+            <ion-button (click)="removeVaccination(i)">-</ion-button>
+          </div>
+        </ion-item>
+      </div>
+
+      <ion-button (click)="addVaccination()">Add Vaccination</ion-button>
+
+      <ion-item>
+        <ion-label position="floating">Image</ion-label>
+        <ion-button (click)="takePicture()">Take Picture</ion-button>
+      </ion-item>
+      <ion-item *ngIf="image">
+        <img [src]="image" alt="Cat Image" />
+      </ion-item>
+
+      <ion-button  [disabled]="!catForm.valid" type="submit">{{ cat ? 'Update Cat' : 'Create Cat' }}</ion-button>
+      <ion-button (click)="closeForm()" color="light">Cancel</ion-button>
+    </form>
+  </ion-card-content>
+</ion-card>

@@ -15,7 +15,7 @@ class CatService:
     def get_cat(self, cat_id: str):
         cat = self.cats.find_one({"_id": ObjectId(cat_id)})
         if cat:
-            cat['_id'] = str(cat['_id'])
+            cat['id'] = str(cat['_id'])
         return cat
 
     def update_cat(self, cat_id: str, cat: Cat):
@@ -31,4 +31,9 @@ class CatService:
 
     def list_cats(self):
         cats = self.cats.find()
-        return [{"_id": str(cat["_id"]), **cat} for cat in cats]
+        cat_list = []
+        for cat in cats:
+            cat_dict = {**cat}
+            cat_dict["id"] = str(cat_dict.pop("_id"))
+            cat_list.append(cat_dict)
+        return cat_list
