@@ -1,23 +1,14 @@
-import os
 from fastapi import APIRouter, HTTPException
 from app.services.cat_service import CatService
 from app.models import Cat
 from typing import List
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+from app.services.config_service import ConfigService
 
-MONGODB_PORT = os.getenv("MONGODB_PORT")
-MONGODB_DATABASE_NAME = os.getenv("MONGODB_DATABASE_NAME")
-MONGODB_USER = os.getenv("MONGODB_USER")
-MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
-MONGODB_HOST = os.getenv("MONGODB_HOST")
 
-# Connection string with environment variables
-MONGODB_URL = f"mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}"
 router = APIRouter()
-cat_service = CatService(db_url=MONGODB_URL, db_name=MONGODB_DATABASE_NAME)
+config_service = ConfigService()
+cat_service = CatService(config_service)
 
 @router.post("/cats/", response_model=str)
 def create_cat(cat: Cat):

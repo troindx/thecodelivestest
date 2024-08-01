@@ -3,7 +3,7 @@
     <ion-card-title>{{ cat.name }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <img [src]="cat.image" *ngIf="cat.image && !expanded" style="width: 100px; height: 100px; object-fit: cover;" />
+    <img  [title]="cat.name" [src]="cat.image" *ngIf="cat.image && !expanded" style="width: 100px; height: 100px; object-fit: cover;" />
     <div *ngIf="expanded">
       <img [src]="cat.image" *ngIf="cat.image" />
       <p>Age: {{ cat.age }}</p>

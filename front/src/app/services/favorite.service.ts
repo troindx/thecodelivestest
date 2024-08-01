@@ -10,9 +10,7 @@ export class FavoriteService {
   private favoriteCats: Cat[] = [];
   favoriteCatsSubject = new BehaviorSubject<Cat[]>([]);
 
-  constructor() {
-    console.log('FavoriteService created');
-  }
+  constructor() {}
 
   getFavoriteCats(): Cat[] {
     return this.favoriteCats;

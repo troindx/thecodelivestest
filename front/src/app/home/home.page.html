@@ -6,12 +6,12 @@
   </ion-header>
   <app-favorite-cats></app-favorite-cats>
   <ion-button (click)="showCatForm()">New Cat</ion-button>
-  
+  <app-cat-form *ngIf="catFormVisible" [cat]="selectedCat" (formClose)="catFormClosed()"></app-cat-form>
   <app-cat-card *ngFor="let cat of cats"
                 [cat]="cat"
                 [expanded]="cat.id === expandedCatId"
                 (expand)="toggleExpand(cat)"
                 (editCat)="editCat($event)"></app-cat-card>
   
-  <app-cat-form *ngIf="catFormVisible" [cat]="selectedCat" (formClose)="catFormClosed()"></app-cat-form>
+  
 </ion-content>

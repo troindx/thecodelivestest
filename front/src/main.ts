@@ -23,9 +23,6 @@ bootstrapApplication(AppComponent, {
     ),
     provideIonicAngular(),
     provideAnimations(),
-    provideRouter(routes, withPreloading(PreloadAllModules)), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
+    provideRouter(routes, withPreloading(PreloadAllModules)), 
   ],
 });

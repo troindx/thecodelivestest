@@ -32,17 +32,19 @@ export class HomePage implements OnInit {
   }
 
   loadCats() {
-    try {
-      this.catService.getCats().subscribe(data => {
-        this.cats = data;
-      });
-    } catch (error) {
-      Toast.show({
-        text: 'Error loading cats',
-        duration: 'long'
-      });
-    }
-    
+      this.catService.getCats().subscribe({
+        next: (cats) => {
+          this.cats = cats;
+          console.log("Cats loaded", cats);
+        },
+        error: (error) => {
+          console.error("Error loading cats", error);
+          Toast.show({
+            text: 'Error loading cats',
+            duration: 'long'
+          });
+        }}
+      );  
   }
 
   showCatForm() {

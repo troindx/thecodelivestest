@@ -1,0 +1,48 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Copy .env.dist to .env
+      run: |
+        cp .env.dist .env 
+        cp .env.dist ./back/.env
+
+    - name: Prepare frontend dependencies and build
+      run: |
+        cd front
+        npm i -g @angular/cli
+        npm i -g @ionic/cli
+        npm install
+        ionic build
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Docker compose up
+      run: docker compose up -d
+
+    - name: Wait for services to be ready
+      run: sleep 15
+    
+    - name: Run backend tests
+      run: |
+        docker compose exec backend sh -c "pytest -x app/"

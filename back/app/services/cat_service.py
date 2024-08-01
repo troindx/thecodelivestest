@@ -1,11 +1,21 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from app.models import Cat
+from dotenv import load_dotenv
+
+from app.services.config_service import ConfigService
+
+
 
 class CatService:
-    def __init__(self, db_url: str, db_name: str):
-        self.client = MongoClient(db_url)
-        self.db = self.client[db_name]
+    def __init__(self, config_service: ConfigService):
+        load_dotenv()
+        config = config_service.get_config()
+        self.client = MongoClient(host=config['mongodb_host'], 
+                                              port=config['mongodb_port'], 
+                                              username=config['mongodb_user'],
+                                              password=config['mongodb_password'])
+        self.db = self.client[config['mongodb_database_name']]
         self.cats = self.db.cats
 
     def create_cat(self, cat: Cat):

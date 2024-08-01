@@ -4,11 +4,12 @@ db.auth(process.env.MONGO_INITDB_ROOT_USERNAME, process.env.MONGO_INITDB_ROOT_PA
 
 const username = process.env.MONGODB_USER;
 const password = process.env.MONGODB_PASSWORD;
-const dbName = process.env.MONGO_INIT_DATABASE_NAME;
+const dbName = process.env.MONGODB_DATABASE_NAME;
 const testDbName = process.env.MONGODB_TEST_DATABASE_NAME;
 
+print("ccffgfc Creating user " + username + " in databases " + dbName + " and " + testDbName);
 try {
-    db = db.getSiblingDB(dbName);  // switch to your target database
+    //db = db.getSiblingDB(dbName);  // switch to your target database
 
     db.createUser({
         user: username,

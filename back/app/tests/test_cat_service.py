@@ -6,22 +6,18 @@ from pymongo import MongoClient
 from datetime import date, datetime
 from dotenv import load_dotenv
 
+from app.services.config_service import ConfigService
+
 # Load environment variables from .env file
 load_dotenv()
 
 @pytest.fixture
 def cat_service():
-    MONGODB_PORT = os.getenv("MONGODB_PORT")
-    MONGODB_DATABASE_NAME = os.getenv("MONGODB_DATABASE_NAME")
-    MONGODB_USER = os.getenv("MONGODB_USER")
-    MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
-    MONGODB_HOST = os.getenv("MONGODB_HOST")
-
-    MONGODB_URL = f"mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}/{MONGODB_DATABASE_NAME}"
-    client = MongoClient(MONGODB_URL)
-    service = CatService(db_url=MONGODB_URL, db_name=MONGODB_DATABASE_NAME)
+    config_service = ConfigService()
+    service = CatService(config_service)
+    dbname = config_service.get('MONGODB_DATABASE_NAME')
     yield service
-    client[MONGODB_DATABASE_NAME].cats.delete_many({})
+    service.client[dbname].cats.delete_many({})
 
 def test_create_cat(cat_service):
     cat = Cat(name="Mittens", image="base64EncodedImage", age=3, breed="Siamese", vaccinations=[Vaccination(type="Rabies", date=datetime.today())])
